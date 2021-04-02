@@ -1,9 +1,9 @@
-#Python GUI app
+# Python GUI app
 Pong game
 
-##Help
-###Install
+## Help
+### Install
  - https://kivy.org/doc/stable/gettingstarted/installation.html#install-pip
-###Tuto
+### Tuto
 - https://kivy.org/doc/stable/tutorials/pong.html
  
