@@ -13,6 +13,7 @@ class PongGame(Widget):
     ball = ObjectProperty(None)
     player1 = ObjectProperty(None)
     player2 = ObjectProperty(None)
+    bot = BotAlgo()
 
     def serve_ball(self, vel=(4, 0)):
         self.ball.center = self.center
@@ -20,6 +21,7 @@ class PongGame(Widget):
 
     def update(self, dt):
         self.ball.move()
+        self.move(self.player2, self.bot.update_player(self.ball, self.player2))
 
         self.player1.bounceBall(self.ball)
         self.player2.bounceBall(self.ball)
@@ -41,13 +43,10 @@ class PongGame(Widget):
             self.player2.center_y = self.center_y
 
     def on_touch_move(self, touch):
-        if touch.x < self.width / 2:
-            self.move(self.player1, touch.y)
-        if touch.x > self.width / 2:
-            self.move(self.player2, touch.y)
+        self.player1.center_y = touch.y
 
-    def move(self, player, y):
-        player.center_y = y
+    def move(self, player, dy):
+        player.center_y = player.center_y + dy
 
 
 class PongBall(Widget):
@@ -77,15 +76,11 @@ class PongPaddle(Widget):
 
 
 class PongApp(App):
-    bot = None
 
     def build(self):
         game = PongGame()
         game.serve_ball()
-        bot = BotAlgo(game.ball, game.player2)
         Clock.schedule_interval(game.update, 1.0 / 60.0)
-        Clock.schedule_interval(bot.update_player, 1.0 / 60.0)
-
         return game
 
 
