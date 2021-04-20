@@ -22,6 +22,18 @@
         top: root.top - 50
         text: str(root.player2.score)
 
+    Label:
+        font_size: 18
+        x: 50
+        y: 20
+        text: "Speed x: {0:2.2f}".format(root.ball.velocity_x)
+
+    Label:
+        font_size: 18
+        x: 50
+        y: 0
+        text: "Speed y: {0:2.2f}".format(root.ball.velocity_y)
+
     PongBall:
         id: pong_ball
         center: self.parent.center
